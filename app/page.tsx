@@ -15,24 +15,41 @@ export default function Home() {
   const [isLoading, setIsLoading] = useState(false)
   const [isCopied, setIsCopied] = useState(false)
   const { toast } = useToast()
+  const [messages, setMessages] = useState<{ id: string; role: string; content: string }[]>([]);
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault()
     setIsLoading(true)
-
-    const url = 'https://xfsned.buildship.run/getDoc';
-    const message = `Generate a ${projectType} project PRD for: ${userPrompt}`
+    const userMessage = {
+      id: String(Date.now()),
+      role: 'user',
+      content: userPrompt
+    };
+    
+    setMessages(prev => [...prev, userMessage]);
+console.log(JSON.stringify({ messages: [...messages, userMessage] }));
     try {
-      const response = await fetch(url, {
+      
+const buildshipUrl = process.env.BUILDSHIP_URL;
+// if (!buildshipUrl) {
+//   throw new Error('BUILDSHIP_URL is not defined in the environment variables');
+// }
+     
+      // Make API request
+      const response = await fetch(buildshipUrl!, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ message })
+        body: JSON.stringify({ messages: userPrompt })
       });
-      const result = await response.text();
-      console.log('Success:', result);
-      setOutput(result);
+
+      const data = await response.text();
+      
+     
+
+      console.log('Success:', data);
+      setOutput(data);
     } catch (error) {
       console.error('Error:', error);
       setOutput('An error occurred while generating the PRD.');
