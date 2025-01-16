@@ -3,7 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import UserAvatar from "../sidebars/UserAvatar";
 import { BiChevronDown } from "react-icons/bi";
-import { signout } from "@/app/actions/auth";
+// import { signout } from "@/app/actions/auth";
 import { GoSignOut } from "react-icons/go";
 
 export default function UserMenu({ email }: { email: string | null }) {
@@ -39,7 +39,7 @@ export default function UserMenu({ email }: { email: string | null }) {
         ref={menuRef}
       >
         <button
-          onClick={signout}
+          // onClick={signout}
           className={`flex w-full items-center justify-between rounded-md p-1 text-white hover:bg-blue-500`}
         >
           <span className="text-xs">Sign out</span>

@@ -118,9 +118,9 @@ export default function Home() {
       }),
     });
 
-    if (!res.ok) {
-      throw new Error(res.statusText);
-    }
+    // if (!res.ok) {
+    //   throw new Error(res.statusText);
+    // }
 
     if (!res.body) {
       throw new Error("No response body");
